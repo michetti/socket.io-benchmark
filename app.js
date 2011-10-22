@@ -3,6 +3,11 @@ var exec = require('child_process').exec;
 
 io.configure(function() {
   io.set('log level', 1);
+
+  var transport = process.argv.length >= 2 ? process.argv[2] : null;
+  if (transport) {
+    io.set('transports', [transport]);
+  }
 });
 
 // command to read process consumed memory and cpu time

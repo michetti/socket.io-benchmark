@@ -12,10 +12,14 @@ Instalation:
 * set ulimit to increase max number of opened sockets.
 
 Run:
-1) Start server: 'node app.js'
-2) Start clients: 'node benchmark.js <users> <rampup in seconds> &'
+1)  Start server: 'node app.js <transport>'
+    * transport can be omitted.
+    * see socket.io docs for available transport
+    * only websocket and xhr-polling seens to work...
+    * xhr-polling acts oddly under load...
 
-Ex: 'node benchmark.js 120 60' -> one new user every 0.5 seconds, until 120 users are connected.
+2)  Start clients: 'node benchmark.js <users> <rampup in seconds> &'
+    Ex: 'node benchmark.js 120 60' -> one new user every 0.5 seconds, until 120 users are connected.
 
 It is better to repeat step 2 multiple times than run it one time with a lot of users, since node is monothread.
 
@@ -32,10 +36,9 @@ RT    -> "Response Time" in miliseconds... actually, one second / (messages per 
 CPU   -> CPU usage percentage
 Mem   -> Memory usage percentage
 
-For now, you can verify server resources utilization using 'top', 'htop', or something like it.
+To verify global resources utilization (by server and multiple clients processes), use 'top', 'htop' (recomended) or something like it.
 
 TODO/Brainstorm:
-*) Specify transport on app.js command line.
 *) Specify broadcast/echo behavior on app.js command line.
 *) Make benchmark.js fork new processes to run clients, instead of running the script multiple times.
 *) Use redis store and create several server processes.
