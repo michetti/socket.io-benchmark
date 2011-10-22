@@ -23,17 +23,18 @@ Run 'node responsetime.js' to see a more precise response time. It will connect 
 
 Output:
 app.js will log the following line each second:
-U: 100, M/S: 2500, M/S/U: 25, RT: 40
+U: 100, M/S: 2500, M/S/U: 25, RT: 40, CPU: 56, Mem: 1.8
 
 U     -> Number of connected users
 M/S   -> Messages per second
 M/S/U -> Messages per second per user
 RT    -> "Response Time" in miliseconds... actually, one second / (messages per second / per user).
+CPU   -> CPU usage percentage
+Mem   -> Memory usage percentage
 
-For now, you can verify server resources utilization using 'top', or something like it.
+For now, you can verify server resources utilization using 'top', 'htop', or something like it.
 
 TODO/Brainstorm:
-*) Add server CPU and memory utilization to log.
 *) Specify transport on app.js command line.
 *) Specify broadcast/echo behavior on app.js command line.
 *) Make benchmark.js fork new processes to run clients, instead of running the script multiple times.
