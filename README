@@ -1,0 +1,2 @@
+Simple socket.io benchmark.
+Should also be used to compare performance between different transports.
