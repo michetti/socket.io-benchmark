@@ -1,2 +1,31 @@
 Simple socket.io benchmark.
-Should also be used to compare performance between different transports.
+
+
+For now, each client sends a message to the server, which sends it back to the same client, which repeats the process forever.
+
+
+Instalation:
+1) 'git clone git@github.com:michetti/socket.io-benchmark.git'
+2) on created dir, 'npm install -d'
+3) set ulimit 'ulimit -u <desired ulimit>'
+
+* set ulimit to increase max number of opened sockets.
+
+Run:
+1) Start server: 'node app.js'
+2) Start clients: 'node benchmark.js <users> <rampup in seconds> &'
+
+Users will be added at an <users> / <rampup> rate.
+Ex: 'node benchmark.js 1000 100' -> 100 new users per second, until 1000 users are connected
+
+It is better to repeat step 2 many times than run it with a lot of users, since node is monothread.
+
+Run 'node responsetime.js' to see a more precise response time. It will connect another user, that will log the response time in miliseconds. The benchmark.js also logs response time, but it is an approximation.
+
+TODO:
+*) Specify transport on app.js command line.
+*) Specify broadcast/echo behavior on app.js command line.
+*) Make benchmark.js fork new processes to run clients, instead of running the script multiple time.
+
+
+I'm quite new to all this. Any help is appreciated.
