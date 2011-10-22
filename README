@@ -15,8 +15,7 @@ Run:
 1) Start server: 'node app.js'
 2) Start clients: 'node benchmark.js <users> <rampup in seconds> &'
 
-Users will be added at an <users> / <rampup> rate.
-Ex: 'node benchmark.js 1000 100' -> 100 new users per second, until 1000 users are connected
+Ex: 'node benchmark.js 120 60' -> one new user every 0.5 seconds, until 120 users are connected.
 
 It is better to repeat step 2 multiple times than run it one time with a lot of users, since node is monothread.
 
