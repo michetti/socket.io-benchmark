@@ -18,14 +18,26 @@ Run:
 Users will be added at an <users> / <rampup> rate.
 Ex: 'node benchmark.js 1000 100' -> 100 new users per second, until 1000 users are connected
 
-It is better to repeat step 2 many times than run it with a lot of users, since node is monothread.
+It is better to repeat step 2 multiple times than run it one time with a lot of users, since node is monothread.
 
-Run 'node responsetime.js' to see a more precise response time. It will connect another user, that will log the response time in miliseconds. The benchmark.js also logs response time, but it is an approximation.
+Run 'node responsetime.js' to see a more precise response time. It will connect another user, that will log the response time for each send message/receive it back cicle, in miliseconds. The benchmark.js also logs response time, but it is an approximation.
 
-TODO:
+Output:
+app.js will log the following line each second:
+U: 100, M/S: 2500, M/S/U: 25, RT: 40
+
+U     -> Number of connected users
+M/S   -> Messages per second
+M/S/U -> Messages per second per user
+RT    -> "Response Time" in miliseconds... actually, one second / (messages per second / per user).
+
+TODO/Brainstorm:
 *) Specify transport on app.js command line.
 *) Specify broadcast/echo behavior on app.js command line.
-*) Make benchmark.js fork new processes to run clients, instead of running the script multiple time.
+*) Make benchmark.js fork new processes to run clients, instead of running the script multiple times.
+*) Use redis store and create several server processes.
 
 
-I'm quite new to all this. Any help is appreciated.
+I'm quite new to node, socket.io and benchmarking. Any help is appreciated.
+
+Tested only with node v0.4.12.

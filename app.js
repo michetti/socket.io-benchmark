@@ -17,7 +17,7 @@ setInterval(function() {
     'U: ' + users,
     'M/S: ' + count,
     'M/S/U: ' + msu,
-    'TR/M: ' + trm,
+    'RT: ' + trm,
   ];
 
   console.log(l.join(', '));
