@@ -1,12 +1,11 @@
-// import required modules
 var io = require('socket.io-client');
 
 var message = "o bispo de constantinopla nao quer se desconstantinopolizar";
 
-function user() {
+function user(host, port) {
   var start = new Date();
 
-  var socket = io.connect('http://localhost:3000', {'force new connection': true});
+  var socket = io.connect('http://' + host + ':' + port, {'force new connection': true});
 
   socket.on('connect', function() {
     // send loop message
@@ -20,4 +19,8 @@ function user() {
   });
 };
 
-user()
+var argvIndex = 2;
+var host = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : 'localhost';
+var port = process.argv[argvIndex++] ? process.argv[argvIndex - 1] : '3000';
+
+user(host, port)
