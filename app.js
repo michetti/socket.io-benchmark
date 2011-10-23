@@ -1,3 +1,4 @@
+var profiler = require('v8-profiler');
 var io = require('socket.io').listen(3000);
 var exec = require('child_process').exec; 
 
@@ -45,7 +46,8 @@ setInterval(function() {
     ];
 
     console.log(l.join(',\t'));
-    count = 0;
+    countReceived = 0;
+    countSended = 0;
   });
 
 }, 1000);

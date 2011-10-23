@@ -4,10 +4,9 @@ For now, this project intention is to benchmark socket.io implementation itself,
 
 
 There are two tests you can run:
+* echo -> each client sends a message to the server, which sends it back to the same client, which repeats the process forever.
 
-echo) each client sends a message to the server, which sends it back to the same client, which repeats the process forever.
-
-broadcast) each client sends a message to the server, which broadcasts it to all other clients. The server notify the client if the broadcast went ok, and then the client repeats the process forever.
+* broadcast -> each client sends a message to the server, which broadcasts it to all other clients. The server notify the client if the broadcast went ok, and then the client repeats the process forever.
 
 
 Instalation:
@@ -28,6 +27,7 @@ Run:
     Ex: 'node benchmark.js 120 60' -> one new user every 0.5 seconds, until 120 users are connected.
 
 Broadcast parameter is optional. If not specified, the echo behaviour will be used.
+Ex: 'node benchmark.js 120 60 broadcast'
 
 It is better to repeat step 2 multiple times than run it one time with a lot of users, since node is monothread.
 
@@ -37,18 +37,27 @@ Output:
 app.js will log the following line each second:
 U: 100, MR/S: 2500, MS/S: 2500, MR/S/U: 25, MS/S/U: 25, CPU: 56, Mem: 1.8
 
-U     -> Number of connected users
-MR/S   -> Messages received per second
-MS/S   -> Messages sended per second
-MR/S/U -> Messages received per second per user
-MS/S/U -> Messages sended per second per user
-CPU   -> CPU usage percentage
-Mem   -> Memory usage percentage
+U       -> Number of connected users
+MR/S    -> Messages received per second
+MS/S    -> Messages sended per second
+MR/S/U  -> Messages received per second per user
+MS/S/U  -> Messages sended per second per user
+CPU     -> CPU usage percentage
+Mem     -> Memory usage percentage
 
 To verify global resources utilization (by server and multiple clients processes), use 'top', 'htop' (recomended) or something like it.
 
+
+Debug/Profilling:
+Both app.js and benchmark.js have support for v8-profiler/node inspector.
+
+To debug/profile app.js:
+1) 'node --debug app.js'
+2) 'node inspector &'
+3) open the printed url (must be a webkit compatible browser, like chrome)
+
+
 TODO/Brainstorm:
-*) Add support for node-inspector/v8-profiler.
 *) Make benchmark.js fork new processes to run clients, instead of running the script multiple times.
 *) Use redis store and create several server processes.
 

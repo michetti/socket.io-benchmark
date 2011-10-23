@@ -3,7 +3,8 @@
   , "version": "0.0.1"
   , "private": true
   , "dependencies": {
-      "socket.io": "latest"
+      "v8-profiler": "latest"
+    , "socket.io": "latest"
     , "socket.io-client": "latest"  
   }
   , "devDependencies": {

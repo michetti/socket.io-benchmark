@@ -1,4 +1,4 @@
-// import required modules
+var profile = require('v8-profiler');
 var io = require('socket.io-client');
 
 var message = "o bispo de constantinopla nao quer se desconstantinopolizar";
