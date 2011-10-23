@@ -3,8 +3,8 @@ var io = require('socket.io-client');
 
 var message = "o bispo de constantinopla nao quer se desconstantinopolizar";
 
-function user(shouldBroadcast) {
-  var socket = io.connect('http://localhost:3000', {'force new connection': true});
+function user(shouldBroadcast, host, port) {
+  var socket = io.connect('http://' + host + ':' + port, {'force new connection': true});
 
   socket.on('connect', function() {
     
@@ -33,7 +33,9 @@ var users = parseInt(process.argv[argvIndex++]);
 var rampUpTime = parseInt(process.argv[argvIndex++]) * 1000; // in seconds
 var newUserTimeout = rampUpTime / users;
 var shouldBroadcast = process.argv[argvIndex++] === 'broadcast' ? true : false;
+var host = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : 'localhost';
+var port = process.argv[argvIndex++] ? process.argv[argvIndex - 1]  : '3000';
 
-for(var i=0; i<parseInt(process.argv[2]); i++) {
-  setTimeout(function() { user(shouldBroadcast); }, i * newUserTimeout);
+for(var i=0; i<users; i++) {
+  setTimeout(function() { user(shouldBroadcast, host, port); }, i * newUserTimeout);
 };

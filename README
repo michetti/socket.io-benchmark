@@ -1,6 +1,11 @@
 Simple socket.io benchmark.
 
-For now, this project intention is to benchmark socket.io implementation itself, and not project built using it.
+For now, this project should be used to benchmark socket.io implementation itself, and not projects built using it.
+
+
+We are building it as a tool to compare WebSocket vs Comet performance, in terms of CPU, Memory and Bandwith utilization.
+
+We choose Socket.IO, because we could run the experiment using WebSocket, and then run it again, using XHR-Polling, or JSON-Polling, by simply changing the available Transports.
 
 
 There are two tests you can run:
@@ -23,11 +28,11 @@ Run:
     * only websocket and xhr-polling seens to work...
     * xhr-polling acts oddly under load...
 
-2)  Start clients: 'node benchmark.js <users> <rampup in seconds> <broadcast> &'
+2)  Start clients: 'node benchmark.js <users> <rampup in seconds> <broadcast> <host> <port> &'
     Ex: 'node benchmark.js 120 60' -> one new user every 0.5 seconds, until 120 users are connected.
 
-Broadcast parameter is optional. If not specified, the echo behaviour will be used.
-Ex: 'node benchmark.js 120 60 broadcast'
+Broadcast, host and port parameters are optional. If not specified, then echo behaviour will be used, and it will connect to localhost on port 3000.
+Different Configu Example: 'node benchmark.js 120 60 broadcast 192.168.1.50 4040'
 
 It is better to repeat step 2 multiple times than run it one time with a lot of users, since node is monothread.
 
