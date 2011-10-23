@@ -3,7 +3,7 @@ Simple socket.io benchmark.
 For now, this project intention is to benchmark socket.io implementation itself, and not project built using it.
 
 
-There are two tests you can ran:
+There are two tests you can run:
 
 echo) each client sends a message to the server, which sends it back to the same client, which repeats the process forever.
 
