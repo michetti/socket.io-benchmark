@@ -14,17 +14,19 @@ io.configure(function() {
 var getCpuCommand = "ps -p " + process.pid + " -u | grep " + process.pid;
 
 var users = 0;
-var count = 0;
+var countReceived = 0;
+var countSended = 0;
 
 function roundNumber(num, precision) {
   return parseFloat(Math.round(num * Math.pow(10, precision)) / Math.pow(10, precision));
 }
 
 setInterval(function() {
-  var aux = roundNumber(count / users, 2)
+  var auxReceived = roundNumber(countReceived / users, 1)
+  var msuReceived = (users > 0 ? auxReceived : 0);
 
-  var msu = (users > 0 ? aux : 0);
-  var trm = (users > 0 ? roundNumber(1000 / aux, 2) : '-');
+  var auxSended = roundNumber(countSended / users, 1)
+  var msuSended = (users > 0 ? auxSended : 0);
 
   // call a system command (ps) to get current process resources utilization
   var child = exec(getCpuCommand, function(error, stdout, stderr) {
@@ -34,14 +36,15 @@ setInterval(function() {
 
     var l = [
       'U: ' + users,
-      'M/S: ' + count,
-      'M/S/U: ' + msu,
-      'RT: ' + trm,
+      'MR/S: ' + countReceived,
+      'MS/S: ' + countSended,
+      'MR/S/U: ' + msuReceived,
+      'MS/S/U: ' + msuSended,
       'CPU: ' + cpu,
       'Mem: ' + memory
     ];
 
-    console.log(l.join(', '));
+    console.log(l.join(',\t'));
     count = 0;
   });
 
@@ -53,7 +56,17 @@ io.sockets.on('connection', function(socket) {
 
   socket.on('message', function(message) {
     socket.send(message);
-    count++;
+    countReceived++;
+    countSended++;
+  });
+
+  socket.on('broadcast', function(message) {
+    countReceived++;
+
+    io.sockets.emit('broadcast', message);
+    countSended += users;
+
+    socket.emit('broadcastOk');
   });
 
   socket.on('disconnect', function() {
