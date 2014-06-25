@@ -14,7 +14,7 @@ There are two tests you can run:
 * broadcast -> each client sends a message to the server, which broadcasts it to all other clients. The server notify the client if the broadcast went ok, and then the client repeats the process forever.
 
 
-Instalation:
+Installation:
 1) 'git clone git@github.com:michetti/socket.io-benchmark.git'
 2) on created dir, 'npm install -d'
 3) set ulimit 'ulimit -u <desired ulimit>'
